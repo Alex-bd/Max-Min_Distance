@@ -20,6 +20,14 @@ def calcuDistance(data1, data2):
         distance += pow((data1[i] - data2[i]), 2)
     return math.sqrt(distance)
 
+# 计算绝对值距离
+def calcuDistance_abs(data1,data2):
+    dist_abs = 0
+    for i in range(len(data1)):
+        dist_abs += abs(data1[i] - data2[i])
+    return dist_abs                 # 计算绝对值距离
+
+
 
 def maxmin_distance_cluster(data, Theta):
     '''
@@ -43,13 +51,14 @@ def maxmin_distance_cluster(data, Theta):
     # 寻找第二个聚类中心，即与第一个聚类中心最大距离的样本点
     for i in range(dataNum):
         ptr1 = data[i]
-        d = calcuDistance(ptr1, ptrCen)
+        # d = calcuDistance(ptr1, ptrCen)     # 欧式距离
+        d = calcuDistance_abs(ptr1,ptrCen)
         distance[i] = d
         classes[i] = k + 1
         if (maxDistance < d):
             maxDistance = d
             index = i  # 与第一个聚类中心距离最大的样本
-
+        print(distance[i])  # 打印欧式距离
     minDistance = distance.copy()
     maxVal = maxDistance
     while maxVal > (maxDistance * Theta):
