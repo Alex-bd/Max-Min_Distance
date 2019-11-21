@@ -52,15 +52,16 @@ def maxmin_distance_cluster(data, Theta):
     for i in range(dataNum):
         ptr1 = data[i]
         # d = calcuDistance(ptr1, ptrCen)     # 欧式距离
-        d = calcuDistance_abs(ptr1,ptrCen)
+        d = calcuDistance_abs(ptr1,ptrCen)    # 绝对值距离
         distance[i] = d
         classes[i] = k + 1
         if (maxDistance < d):
             maxDistance = d
             index = i  # 与第一个聚类中心距离最大的样本
-        print(distance[i])  # 打印欧式距离
+        print("与第一个聚类中心的距离", +distance[i])  # 打印欧式距离
     minDistance = distance.copy()
     maxVal = maxDistance
+    # print("maxDistance:"+maxDistance)
     while maxVal > (maxDistance * Theta):
         k = k + 1
         centerIndex += [index]  # 新的聚类中心
@@ -73,8 +74,10 @@ def maxmin_distance_cluster(data, Theta):
             if minDistance[i] > distance[i]:
                 minDistance[i] = distance[i]
                 classes[i] = k + 1
+        # print(minDistance)
         # 寻找minDistance中的最大距离，若maxVal > (maxDistance * Theta)，则说明存在下一个聚类中心
         index = np.argmax(minDistance)
+        print("最小里的最大值：,索引为：", +minDistance[i], index)
         maxVal = minDistance[index]
     return classes, centerIndex
 
